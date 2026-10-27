@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f6feb">
+<meta name="description" content="按 70 份高三英语模拟卷算出的核心词表，4 个词库共 1500 条；60 篇真题原文精读，点词即释义、生词一键进背单词。免费、离线、不收集数据。">
+<title>炼句 · 高三英语阅读工具（1000 词 + 真题精读）</title>
+<link rel="stylesheet" href="styles.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="炼句 · 高三英语阅读工具（1000 词 + 真题精读）">
+<meta property="og:description" content="按 70 份高三英语模拟卷算出的核心词表，4 个词库共 1500 条；60 篇真题原文精读，点词即释义、生词一键进背单词。免费、离线、不收集数据。">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<div id="app">
+  <header id="topbar">
+    <div class="bar-left">
+      <span id="brand">炼句</span>
+      <span id="offline-badge" class="badge hidden">离线模式</span>
+    </div>
+    <div class="bar-right">
+      <span id="streak" class="streak" title="连续打卡天数"></span>
+      <button id="btn-settings" class="icon-btn" aria-label="设置">⚙</button>
+    </div>
+  </header>
+
+  <main id="view" role="main"></main>
+
+  <nav id="tabbar" role="tablist">
+    <button class="tab" data-tab="challenge" role="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 6.2 6.7.5-5.1 4.4 1.5 6.6L12 16.3 6.3 19.7l1.5-6.6L2.7 8.7l6.7-.5z"/></svg>
+      <span>挑战</span>
+    </button>
+    <button class="tab" data-tab="vocab" role="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 016.5 3H12v18H6.5A2.5 2.5 0 014 18.5v-13zm10-2.5h3.5A2.5 2.5 0 0120 5.5v13a2.5 2.5 0 01-2.5 2.5H14V3z"/></svg>
+      <span>单词<b id="tab-badge-vocab" class="tab-badge hidden">0</b></span>
+    </button>
+    <button class="tab" data-tab="reading" role="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h7a2 2 0 012 2v12a2 2 0 00-2-2H3V5zm18 0h-7a2 2 0 00-2 2v12a2 2 0 012-2h7V5z"/></svg>
+      <span>精读</span>
+    </button>
+    <button class="tab" data-tab="review" role="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4V1L7 6l5 5V8a5 5 0 11-5 5H5a7 7 0 107-9z"/></svg>
+      <span>复习<b id="tab-badge-review" class="tab-badge hidden">0</b></span>
+    </button>
+    <button class="tab" data-tab="favorites" role="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a1 1 0 011 1v18l-7-4-7 4V3a1 1 0 011-1z"/></svg>
+      <span>好句</span>
+    </button>
+    <button class="tab" data-tab="me" role="tab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 2c-4.4 0-8 2.5-8 5.5V22h16v-2.5c0-3-3.6-5.5-8-5.5z"/></svg>
+      <span>我的</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ============ 1. 数据层（必须是 .js，file:// 下 fetch JSON 会被 CORS 拦死） ============ -->
+<script src="data/bank-meta.js"></script>
+<script src="data/bank-seed-app.js"></script>
+<script src="data/bank-seed-app2.js"></script>
+<script src="data/bank-seed-cont.js"></script>
+<script src="data/bank-seed-cont2.js"></script>
+<script src="data/bank-seed-sent.js"></script>
+<script src="data/bank-seed-sent2.js"></script>
+<script src="data/vocab-1000.js"></script>
+<script src="data/vocab-writing.js"></script>
+<script src="data/vocab-phrase.js"></script>
+<script src="data/vocab-idiom2.js"></script>
+<script src="data/common-words.js"></script>
+<script src="data/reading-bank.js"></script>
+
+<!-- ============ 2. 核心逻辑（纯函数优先，便于 selftest.html 断言） ============ -->
+<script src="core/util.js"></script>
+<script src="core/store.js"></script>
+<script src="core/cache.js"></script>
+<script src="core/scheduler.js"></script>
+<script src="core/validator.js"></script>
+<script src="core/picker.js"></script>
+<script src="core/stats.js"></script>
+<script src="core/speech.js"></script>
+<script src="core/vocab.js"></script>
+<script src="core/reading.js"></script>
+
+<!-- ============ 2b. DeepSeek 生成链路 ============ -->
+<script src="core/api.js"></script>
+<script src="core/prompts.js"></script>
+<script src="core/generator.js"></script>
+
+<!-- ============ 3. 视图 ============ -->
+<script src="views/challenge.js"></script>
+<script src="views/vocab.js"></script>
+<script src="views/reading.js"></script>
+<script src="views/review.js"></script>
+<script src="views/favorites.js"></script>
+<script src="views/me.js"></script>
+
+<!-- ============ 4. 启动 ============ -->
+<script src="app.js"></script>
+</body>
+</html>
